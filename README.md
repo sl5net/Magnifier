@@ -1,6 +1,6 @@
 # Magnifier
 some lines changed. a copy of https://autohotkey.com/board/topic/10660-screenmagnifier/ from 07.03.2018 
-
+```
 addet this:
 
 ;<<<<<<<< config <<<< 180307074036 <<<< 07.03.2018 07:40:36 <<<<
@@ -13,4 +13,5 @@ zoom = 3                ; initial magnification, 1..32
 #SingleInstance,force
 ....
 ....
- 
+
+```
