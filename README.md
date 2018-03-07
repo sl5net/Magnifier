@@ -12,6 +12,10 @@ zoom = 3                ; initial magnification, 1..32
 ;>>>>>>>> config >>>> 180307074039 >>>> 07.03.2018 07:40:39 >>>>
 #SingleInstance,force
 ....
+#m::
+	doMove := ( doMove ) ? false : true
+return
+
 ....
 
 ```
