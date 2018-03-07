@@ -1,14 +1,16 @@
+; Indentation_style: https://de.wikipedia.org/wiki/EinrÃ¼ckungsstil#SL5small-Stil
 ;<<<<<<<< config <<<< 180307074036 <<<< 07.03.2018 07:40:36 <<<<
 doCaret_centered := false ; A_CaretX A_CaretY
 doCaret_centered := true ; A_CaretX A_CaretY
 doMove := true
-firsPos := { x: 1939, y: 193, w: 2211, h: 1102 }
+firstPos := { x: 1939, y: 193, w: 2211, h: 1102 }
 zoom = 3                ; initial magnification, 1..32
 ;>>>>>>>> config >>>> 180307074039 >>>> 07.03.2018 07:40:39 >>>>
+#SingleInstance,force
 
+MsgBox,run %A_ScriptName% ?
 
 #NoEnv
-#SingleInstance,force
 SetBatchLines -1
 
 CoordMode Mouse, Screen
@@ -19,6 +21,7 @@ Ry = 128
 Zx := Rx/zoom           ; frame x/y size
 Zy := Ry/zoom
                         ; GUI to show the magnified image
+gui, -dpiscale    ; <--- the fix from https://autohotkey.com/boards/viewtopic.php?p=204693#p204693                   
 Gui +AlwaysOnTop +Resize +ToolWindow
 Gui Show, % "w" 2*Rx " h" 2*Ry " x0 y0", Magnifier
 WinGet MagnifierID, id,  Magnifier
@@ -26,7 +29,7 @@ WinSet Transparent, 255, Magnifier ; makes the window invisible to magnification
 WinGet PrintSourceID, ID
 
 
-WinMove,Magnifier ahk_class AutoHotkeyGUI ,, firsPos["x"],firsPos["y"], firsPos["w"],firsPos["h"]
+WinMove,Magnifier ahk_class AutoHotkeyGUI ,, firstPos["x"],firstPos["y"], firstPos["w"],firstPos["h"]
 
 
 
