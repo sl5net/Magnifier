@@ -3,12 +3,15 @@
 doCaret_centered := false ; A_CaretX A_CaretY
 doCaret_centered := true ; A_CaretX A_CaretY
 doMove := true
-firstPos := { x: 1939, y: 193, w: 2211, h: 1102 }
+firstPos := { x: 1939, y: -5, w: 2211, h: 1102 }
+firstPos := { x: -1910, y: -5, w: 1913, h: 1018 } ; left monitor
+
 zoom = 3                ; initial magnification, 1..32
 ;>>>>>>>> config >>>> 180307074039 >>>> 07.03.2018 07:40:39 >>>>
 #SingleInstance,force
 
-MsgBox,run %A_ScriptName% ?
+;MsgBox,run %A_ScriptName% ?
+WinShow, ahk_class Shell_TrayWnd
 
 #NoEnv
 SetBatchLines -1
@@ -36,15 +39,28 @@ WinMove,Magnifier ahk_class AutoHotkeyGUI ,, firstPos["x"],firstPos["y"], firstP
 hdd_frame := DllCall("GetDC", UInt, PrintSourceID)
 hdc_frame := DllCall("GetDC", UInt, MagnifierID)
 
-SetTimer Repaint, 50    ; flow through
+SetTimer mainLoop, 50    ; flow through
+mainLoop:
+   ; gosub autoHideTaskbar
+   gosub Repaint
+return
+autoHideTaskbar:
+   if(y > A_ScreenHeight - 100)
+      WinShow, ahk_class Shell_TrayWnd
+   else
+      WinHide, ahk_class Shell_TrayWnd
+return
 Repaint:
 	if(doMove){
 		if(!doCaret_centered)
-		   MouseGetPos x, y
+           MouseGetPos x, y
 		else{
 			x := A_CaretX 
 			y := A_CaretY
 	}}
+   if(!x || !y){ ; in some windows A_CaretX has no results 14.03.2018 07:32
+      MouseGetPos x, y
+   }
    xz := In(x-Zx-6,0,A_ScreenWidth-2*Zx) ; keep the frame on screen
    yz := In(y-Zy-6,0,A_ScreenHeight-2*Zy)
   ; WinMove Frame,,%xz%, %yz%, % 2*Zx, % 2*Zy
